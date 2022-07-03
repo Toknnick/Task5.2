@@ -1,8 +1,5 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Task5._2
 {
@@ -11,18 +8,19 @@ namespace Task5._2
         static void Main(string[] args)
         {
             Random random = new Random();
-            Queue<string> clients = new Queue<string>();
+            Queue<int> clients = new Queue<int>();
             List<int> prices = new List<int>();
             int maxValueFromRandom = 9;
+            int minValueFromRandom = 1;
             int maxPriceFromRandom = 99;
             int moneyOfShop = 0;
-            int maxClients = random.Next(maxValueFromRandom);
+            int maxClients = random.Next(minValueFromRandom,maxValueFromRandom);
             int numberOfClient = 0;
             int numberOfPrice = 0;
 
             while (maxClients > numberOfClient)
             {
-                clients.Enqueue("Клиент " + (numberOfClient + 1));
+                clients.Enqueue(numberOfClient);
                 numberOfClient++;
             }
 
@@ -34,9 +32,13 @@ namespace Task5._2
                 prices.Add(price);
             }
 
-            while (clients.Count > 0)
+            numberOfClient = 0;
+
+            while (maxClients > numberOfClient)
             {
-                Console.WriteLine($"Следующий клиент: {clients.Dequeue()}\nСтоймость продуктов: {prices[numberOfPrice]}");
+                clients.Dequeue();
+                Console.WriteLine($"Следующий клиент: Клиент {numberOfClient + 1} \nСтоймость продуктов: {prices[numberOfPrice]}");
+                numberOfClient++;
 
                 if (numberOfPrice <= prices.Count)
                     moneyOfShop += prices[numberOfPrice];
@@ -46,6 +48,8 @@ namespace Task5._2
                 Console.ReadKey();
                 Console.Clear();
             }
+
+            Console.WriteLine($"Счет магазина: {moneyOfShop}");
         }
     }
 }
